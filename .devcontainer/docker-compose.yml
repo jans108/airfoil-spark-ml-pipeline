@@ -1,0 +1,6 @@
+version: '3.8'
+services:
+  airfoil-app:
+    # Override command to keep container alive for development
+    command: sleep infinity
+

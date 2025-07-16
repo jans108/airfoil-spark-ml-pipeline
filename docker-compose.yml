@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  airfoil-app:
+    build: .
+    container_name: airfoil-app
+    depends_on:
+      - spark-master
+    environment:
+      - SPARK_MASTER_URL=spark://spark-master:7077
+    volumes:
+      - .:/app
+    networks:
+      - airfoil-network
+
+  # Spark Master node
+  spark-master:
+    image: bitnami/spark:3.5.0
+    container_name: spark-master
+    environment:
+      - SPARK_MODE=master
+      - SPARK_MASTER_HOST=spark-master
+    ports:
+      - "8080:8080"  # Spark Web UI
+      - "7077:7077"  # Spark Master port
+    networks:
+      - airfoil-network
+
+  # Spark Worker node
+  spark-worker:
+    image: bitnami/spark:3.5.0
+    container_name: spark-worker
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_WORKER_MEMORY=1g
+      - SPARK_WORKER_CORES=1
+    depends_on:
+      - spark-master
+    networks:
+      - airfoil-network
+
+networks:
+  airfoil-network:
+    driver: bridge
+
+volumes:
+  spark-data:

@@ -1,0 +1,29 @@
+{
+	"name": "Airfoil Project",
+	"dockerComposeFile": [
+		"../docker-compose.yml",
+		"docker-compose.yml"
+	],
+	"service": "airfoil-app",
+	"workspaceFolder": "/app",
+
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"python.defaultInterpreterPath": "/usr/local/bin/python"
+			},
+			"extensions": [
+				"ms-python.python"
+			]
+		}
+	},
+
+	"forwardPorts": [8080, 7077],
+	"portsAttributes": {
+		"8080": {
+			"label": "Spark Web UI"
+		}
+	},
+
+	"shutdownAction": "stopCompose"
+}
