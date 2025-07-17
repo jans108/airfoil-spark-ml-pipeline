@@ -13,7 +13,7 @@ ENV PATH=$JAVA_HOME/bin:$PATH
 # Set the working directory
 WORKDIR /app
 
-# Healthcheck to ensure Spark is running
+# Healthcheck to ensure Spark is running - uncomment if needed
 # HEALTHCHECK --interval=30s --timeout=15s --start-period=90s --retries=3 \
 #    CMD python -c "import findspark; findspark.init(); import pyspark; print('Spark OK')" || exit 1
 
